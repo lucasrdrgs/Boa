@@ -106,8 +106,8 @@ class Boa(object):
 				is_ignoring = False
 				ptr += len(self.close_ignore_html_tag)
 			if matches_tag(self.open_tag) and not is_ignoring:
-				# Do I really need strip?
-				if len(text.strip()) > 0:
+				# Strip text if it breaks.
+				if len(text) > 0:
 					output += ('\t' * indent) + 'print(\'{}\', end = \'\')\n'.format(self.escape(text))
 					text = ''
 				is_code = True
@@ -155,7 +155,6 @@ class Boa(object):
 						output += ('\t' * indent) + 'print(\'{}\')\n'.format(self.escape(text))
 						text = ''
 			ptr += 1
-		print(output.strip())
 		return output.strip()
 
 	def render(self, template, request, **context):
