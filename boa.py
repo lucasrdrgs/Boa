@@ -181,9 +181,7 @@ class Boa(object):
 			templated = pre_html + templated
 
 			parsed = self.parse(templated)
-			with open('output.txt', 'w') as f:
-				f.write(parsed)
-
+	
 			output = ''
 			with get_stdout() as s:
 			#	try:
