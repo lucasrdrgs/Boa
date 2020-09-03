@@ -175,9 +175,9 @@ class Boa(object):
 					pre_html += 'GET[\'{}\'] = \'{}\'\n'.format(k, v)
 				for k, v in request.form.items():
 					pre_html += 'POST[\'{}\'] = \'{}\'\n'.format(k, v)
-				for k, v in context.items():
-					pre_html += '{} = {}\n'.format(k, v)
-				pre_html += '!}\n'
+			for k, v in context.items():
+				pre_html += '{} = {}\n'.format(k, v)
+			pre_html += self.close_tag + '\n'
 			templated = pre_html + templated
 
 			parsed = self.parse(templated)
