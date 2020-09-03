@@ -12,6 +12,7 @@ import io
 import sys
 import contextlib
 from bs4 import BeautifulSoup as BSoup
+import html as pyhtml
 
 # Source: https://stackoverflow.com/a/3906390/8041523
 @contextlib.contextmanager
@@ -129,6 +130,7 @@ class Boa(object):
 				code_result = ''
 				for ln in code_fragment.split('\n'):
 					ln = ln.strip().strip('\t').strip('\n')
+					ln = pyhtml.unescape(ln)
 					if len(ln) == 0: continue
 					if ln.endswith(':') and (ln != 'else:' and not ln.startswith('elif')):
 						code_result += ('\t' * indent) + ln + '\n'
@@ -179,13 +181,15 @@ class Boa(object):
 			templated = pre_html + templated
 
 			parsed = self.parse(templated)
+			with open('output.txt', 'w') as f:
+				f.write(parsed)
 
 			output = ''
 			with get_stdout() as s:
-				try:
-					exec(parsed)
-					output = s.getvalue()
-				except Exception as e:
-					output = '500 Server Error\nException: {}'.format(e)
+			#	try:
+				exec(parsed, globals())
+				output = s.getvalue()
+			#	except Exception as e:
+			#		output = '500 Server Error\nException: {}'.format(e)
 			return output
 		raise Exception('Something went very wrong. :(')
