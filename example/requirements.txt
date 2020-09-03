@@ -1,3 +1,0 @@
-flask
-bs4
-lxml
