@@ -14,4 +14,4 @@ Templating support (like Jinja's {% block ... %} and {% extends ... %})!
 
 Did I mention it sucks?
 
-Compatible with Flask, Django and whatever other Python framework, fuck you, eat shit and die.
+Compatible with Flask, Django and whatever other Python framework, I hate myself and I want to die.
