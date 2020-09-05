@@ -168,7 +168,7 @@ class Boa(object):
 			templated = self.process_template(template_html)
 
 			pre_html = self.open_tag + '\n'
-			pre_html += 'GET = {}\nPOST = {}\n'
+			pre_html += 'GET = {}\nPOST = {}\nSESSION = {}\n'
 			if request is not None:
 				for k, v in request.args.items():
 					pre_html += 'GET[\'{}\'] = \'{}\'\n'.format(k, v)
