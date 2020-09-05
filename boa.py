@@ -158,7 +158,7 @@ class Boa(object):
 			ptr += 1
 		return output.strip()
 
-	def render(self, template, request, session, **context):
+	def render(self, template, request = None, session = None, **context):
 		template = os.path.join(self.template_directory, template)
 		if not os.path.exists(template):
 			raise FileNotFoundError('Template \'{}\' does not exist.'.format(template))
