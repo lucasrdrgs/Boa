@@ -171,14 +171,14 @@ class Boa(object):
 			pre_html += 'GET = {}\nPOST = {}\nSESSION = {}\n'
 			if request is not None:
 				for k, v in request.args.items():
-					pre_html += 'GET[\'{}\'] = \'{}\'\n'.format(k, v)
+					pre_html += 'GET[\'{}\'] = \'{}\'\n'.format(self.escape(k), self.escape(v))
 				for k, v in request.form.items():
-					pre_html += 'POST[\'{}\'] = \'{}\'\n'.format(k, v)
+					pre_html += 'POST[\'{}\'] = \'{}\'\n'.format(self.escape(k), self.escape(v))
 			if session is not None:
 				for k, v in session.items():
-					pre_html += 'SESSION[\'{}\'] = \'{}\'\n'.format(k, v)
+					pre_html += 'SESSION[\'{}\'] = \'{}\'\n'.format(self.escape(k), self.escape(v))
 			for k, v in context.items():
-				pre_html += '{} = {}\n'.format(k, v)
+				pre_html += '{} = {}\n'.format(self.escape(k), self.escape(v))
 			pre_html += self.close_tag + '\n'
 			templated = pre_html + templated
 
