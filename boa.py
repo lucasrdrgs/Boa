@@ -2,7 +2,6 @@
 
 CODE CLUSTERFUCK BELOW.
 TAKE CARE!
-LMAO, WARNED U
 
 """
 
@@ -159,7 +158,7 @@ class Boa(object):
 			ptr += 1
 		return output.strip()
 
-	def render(self, template, request, **context):
+	def render(self, template, request, session, **context):
 		template = os.path.join(self.template_directory, template)
 		if not os.path.exists(template):
 			raise FileNotFoundError('Template \'{}\' does not exist.'.format(template))
@@ -175,6 +174,9 @@ class Boa(object):
 					pre_html += 'GET[\'{}\'] = \'{}\'\n'.format(k, v)
 				for k, v in request.form.items():
 					pre_html += 'POST[\'{}\'] = \'{}\'\n'.format(k, v)
+			if session is not None:
+				for k, v in session.items():
+					pre_html += 'SESSION[\'{}\'] = \'{}\'\n'.format(k, v)
 			for k, v in context.items():
 				pre_html += '{} = {}\n'.format(k, v)
 			pre_html += self.close_tag + '\n'
