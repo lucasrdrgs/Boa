@@ -42,6 +42,8 @@ class Boa(object):
 		self.close_ignore_html_tag = '</{}>'.format(self.ignore_html_tag)
 
 	def escape(self, s):
+		if not isinstance(s, str):
+			return s
 		to_rep = {
 			'\\': '\\\\',
 			'\'': '\\\'',
