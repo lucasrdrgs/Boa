@@ -155,7 +155,9 @@ class Boa(object):
 					text += html[ptr]
 				else:
 					if len(text.rstrip()) != 0:
-						output += ('\t' * indent) + 'print(\'{}\')\n'.format(self.escape(text))
+						# Replace with comment if it breaks
+						output += ('\t' * indent) + 'print(\'{}\', end=\'\')\n'.format(self.escape(text))
+						# output += ('\t' * indent) + 'print(\'{}\')\n'.format(self.escape(text))
 						text = ''
 			ptr += 1
 		return output.strip()
