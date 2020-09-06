@@ -12,6 +12,7 @@ import sys
 import contextlib
 from bs4 import BeautifulSoup as BSoup
 import html as pyhtml
+import copy
 
 # Source: https://stackoverflow.com/a/3906390/8041523
 @contextlib.contextmanager
@@ -24,10 +25,11 @@ def get_stdout(stdout = None):
 	sys.stdout = old
 
 class Boa(object):
-	def __init__(self, caller = './', template_dir = 'templates'):
+	def __init__(self, caller = './', template_dir = 'templates', component_dir = 'components'):
 		caller = '/'.join(caller.split('/')[:-1])
 		self.parent_directory = os.path.abspath(caller)
 		self.template_directory = os.path.join(self.parent_directory, template_dir)
+		self.component_directory = os.path.join(self.parent_directory, component_dir)
 		
 		self.bs4_parser = 'html.parser'
 
@@ -83,6 +85,32 @@ class Boa(object):
 					# inner HTML. Fuck you, BeautifulSoup!
 					block_innerhtml = block.encode_contents().decode('utf-8')
 					parent_block.replace_with(BSoup(str(block_innerhtml), self.bs4_parser))
+
+		# Final step: custom components
+		if os.path.isdir(self.component_directory):
+			component_files = os.listdir(self.component_directory)
+			for component_file in component_files:
+				component_name = component_file.split('.')[0]
+
+				components = parent_soup.find_all(component_name)
+				if len(components) == 0:
+					continue
+
+				cmp_content = ''
+				with open(os.path.join(self.component_directory, component_file), 'r') as f:
+					cmp_content = f.read()
+
+				cmp_soup = BSoup(cmp_content, self.bs4_parser)
+				for component in components:
+					cmp_inner = None
+					try:
+						cmp_inner = component.encode_contents().decode('utf-8')
+					except: pass
+					cpy = copy.copy(cmp_soup)
+					if cmp_inner:
+						cpy.string.replace_with(cmp_inner)
+					component.replace_with(cpy)
+
 		return str(parent_soup)
 
 	def parse(self, html):

@@ -53,4 +53,22 @@
 		I should be ignored by Boa!
 	!}
 	</boa-ignore>
+
+	<hr>
+
+	<h4>Custom components</h4>
+	<p>
+		Boa also supports custom components. All you need to do is specify your component_dir
+		when initializing your Boa object (default: "components"). Inside that directory, you
+		can create your components (no subdirectories!!!). The extension doesn't matter but
+		it's a good practice to use ".component". Down below is an example of a custom button
+		component, written in HTML using &lt;boa-button&gt;Hey&lt;/boa-button&gt;. As you can
+		see (inspect element), it replaces this custom tag with the component's actual HTML.
+	</p>
+	<boa-button>Hey</boa-button>
+	{!
+		for i in range(5):
+			print('<br>')
+		end
+	!}
 </block>
