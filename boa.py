@@ -10,6 +10,7 @@ import re
 import io
 import sys
 import contextlib
+import bs4
 from bs4 import BeautifulSoup as BSoup
 import html as pyhtml
 import copy
@@ -74,14 +75,15 @@ class Boa(object):
 					cmp_content = f.read()
 
 				cmp_soup = BSoup(cmp_content, self.bs4_parser)
+				cmp_soup = BSoup(cmp_soup.prettify(), self.bs4_parser)
 				for component in components:
-					cmp_inner = None
-					try:
-						cmp_inner = component.encode_contents().decode('utf-8')
-					except: pass
+					cmp_inner = component.encode_contents().decode('utf-8')
 					cpy = copy.copy(cmp_soup)
 					if cmp_inner:
-						cpy.string.replace_with(cmp_inner)
+						if cpy.string is None:
+							cpy.contents[0] = cmp_inner
+						else:
+							cpy.string.replace_with(cmp_inner)
 					component.replace_with(cpy)
 
 		extends = soup.find('extends')
