@@ -58,6 +58,32 @@ class Boa(object):
 
 	def process_template(self, html):
 		soup = BSoup(html, self.bs4_parser)
+		
+		# Custom components. Hope it works.
+		if os.path.isdir(self.component_directory):
+			component_files = os.listdir(self.component_directory)
+			for component_file in component_files:
+				component_name = component_file.split('.')[0]
+
+				components = soup.find_all(component_name)
+				if len(components) == 0:
+					continue
+
+				cmp_content = ''
+				with open(os.path.join(self.component_directory, component_file), 'r') as f:
+					cmp_content = f.read()
+
+				cmp_soup = BSoup(cmp_content, self.bs4_parser)
+				for component in components:
+					cmp_inner = None
+					try:
+						cmp_inner = component.encode_contents().decode('utf-8')
+					except: pass
+					cpy = copy.copy(cmp_soup)
+					if cmp_inner:
+						cpy.string.replace_with(cmp_inner)
+					component.replace_with(cpy)
+
 		extends = soup.find('extends')
 		if not extends:
 			return str(soup)
@@ -85,31 +111,6 @@ class Boa(object):
 					# inner HTML. Fuck you, BeautifulSoup!
 					block_innerhtml = block.encode_contents().decode('utf-8')
 					parent_block.replace_with(BSoup(str(block_innerhtml), self.bs4_parser))
-
-		# Final step: custom components
-		if os.path.isdir(self.component_directory):
-			component_files = os.listdir(self.component_directory)
-			for component_file in component_files:
-				component_name = component_file.split('.')[0]
-
-				components = parent_soup.find_all(component_name)
-				if len(components) == 0:
-					continue
-
-				cmp_content = ''
-				with open(os.path.join(self.component_directory, component_file), 'r') as f:
-					cmp_content = f.read()
-
-				cmp_soup = BSoup(cmp_content, self.bs4_parser)
-				for component in components:
-					cmp_inner = None
-					try:
-						cmp_inner = component.encode_contents().decode('utf-8')
-					except: pass
-					cpy = copy.copy(cmp_soup)
-					if cmp_inner:
-						cpy.string.replace_with(cmp_inner)
-					component.replace_with(cpy)
 
 		return str(parent_soup)
 
