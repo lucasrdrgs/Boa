@@ -80,10 +80,11 @@ class Boa(object):
 					cmp_inner = component.encode_contents().decode('utf-8')
 					cpy = copy.copy(cmp_soup)
 					if cmp_inner:
+						inner_soup = BSoup(cmp_inner, self.bs4_parser)
 						if cpy.string is None:
-							cpy.contents[0] = cmp_inner
+							cpy.contents[0] = inner_soup
 						else:
-							cpy.string.replace_with(cmp_inner)
+							cpy.string.replace_with(inner_soup)
 					component.replace_with(cpy)
 
 		extends = soup.find('extends')
