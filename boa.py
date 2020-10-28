@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup as BSoup
 import html as pyhtml
 import copy
 
-# Source: https://stackoverflow.com/a/3906390/8041523
+# Source: https://stackoverflow.com/a/3906390
 @contextlib.contextmanager
 def get_stdout(stdout = None):
 	old = sys.stdout
