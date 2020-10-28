@@ -228,4 +228,6 @@ class Boa(object):
 			#	except Exception as e:
 			#		output = '500 Server Error\nException: {}'.format(e)
 			return output
-		raise Exception('Something went very wrong. :(')
+		
+		# TODO: add details to the exception
+		raise Exception('Are you sure Python is installed? If so, make sure the global command \'python\' invokes a Python 3 shell.')
