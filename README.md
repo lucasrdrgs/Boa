@@ -16,7 +16,7 @@ Why did I choose this name? Well, in the Python universe we have a few reference
 
 ## How does it work?
 Well, it's fairly simple. Read the code and you'll understand ;)
-Also, check [examples](../examples)
+Also, check [examples](../blob/master/examples).
 
 ## Warnings
 This is most likely vulnerable to XSS and SQL Injection. Do not use this in production for the love of God.
