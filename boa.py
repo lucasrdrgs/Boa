@@ -233,4 +233,4 @@ class Boa(object):
 			return output
 		
 		# TODO: add details to the exception
-		raise Exception('Are you sure Python is installed? If so, make sure the global command \'python\' invokes a Python 3 shell.')
+		raise Exception('Are you sure Python is installed? If so, make sure this script is running on Python 3.')
