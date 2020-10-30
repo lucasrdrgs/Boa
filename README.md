@@ -10,3 +10,6 @@ Boa Hypertext Processor for Python
 - Custom components (you can make your own HTML tags pretty much)!
 - Did I mention it sucks?
 - Compatible with Flask, Django and whatever other Python framework, I hate myself and I want to die.
+
+## Warnings
+This is most likely vulnerable to XSS and SQL Injection. Do not use this in production for the love of God.
