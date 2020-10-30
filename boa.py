@@ -16,6 +16,7 @@ import html as pyhtml
 import copy
 
 # Source: https://stackoverflow.com/a/3906390
+# What it does: gets stdout from exec().
 @contextlib.contextmanager
 def get_stdout(stdout = None):
 	old = sys.stdout
@@ -87,6 +88,7 @@ class Boa(object):
 							cpy.string.replace_with(inner_soup)
 					component.replace_with(cpy)
 
+		# Jinja-like template extensions. See: examples.
 		extends = soup.find('extends')
 		if not extends:
 			return str(soup)
@@ -110,13 +112,14 @@ class Boa(object):
 			if block.has_attr('id'):
 				parent_block = parent_soup.find('block', {'id': block['id']})
 				if parent_block:
-					# Hack to get rid of <block></block>, only keep
+					# Hack to get rid of <block></block>, only keeping its
 					# inner HTML. Fuck you, BeautifulSoup!
 					block_innerhtml = block.encode_contents().decode('utf-8')
 					parent_block.replace_with(BSoup(str(block_innerhtml), self.bs4_parser))
 
 		return str(parent_soup)
 
+	# oh no
 	def parse(self, html):
 		output = ''
 		code = ''
