@@ -1,5 +1,7 @@
 # Boa
-Boa Hypertext Processor for Python
+A simple Python hypertext processor that works as an "extension" for Flask/Django.
+
+Why did I choose this name? Well, in the Python universe we have a few references to... uh... snakes, such as Python itself, Anaconda etc. And guess what, [Boas](https://en.wikipedia.org/wiki/Boidae) are a snake family.
 
 ## (Dis?)advantages
 - It sucks!
