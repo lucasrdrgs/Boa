@@ -14,5 +14,9 @@ Why did I choose this name? Well, in the Python universe we have a few reference
 - Did I mention it sucks?
 - Compatible with Flask, Django and whatever other Python framework, I hate myself and I want to die.
 
+## How does it work?
+Well, it's fairly simple. Read the code and you'll understand ;)
+Also, check [examples](../examples)
+
 ## Warnings
 This is most likely vulnerable to XSS and SQL Injection. Do not use this in production for the love of God.
