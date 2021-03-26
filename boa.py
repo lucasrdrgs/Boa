@@ -1,7 +1,7 @@
 """
 
-CODE CLUSTERFUCK BELOW.
-TAKE CARE!
+This is still being tested.
+Avoid using it in production.
 
 """
 
